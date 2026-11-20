@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/DHDAXCW/immortalwrt
-  REPO_BRANCH: openwrt-24.10
+  REPO_URL: https://github.com/xhybb/immortal
+  REPO_BRANCH: my-openwrt-24.10
   CONFIG_FILE: immortalwrt/rockchip/defconfig
   DIY_P1_SH: immortalwrt/diy-part1.sh
   DIY_P2_SH: immortalwrt/diy-part2.sh
@@ -98,17 +98,6 @@ jobs:
       id: package
       run: |
         cd openwrt
-        echo '
-        CONFIG_DOCKER_CGROUP_OPTIONS=y
-        CONFIG_DOCKER_NET_MACVLAN=y
-        CONFIG_DOCKER_STO_EXT4=y
-        CONFIG_PACKAGE_docker=y
-        CONFIG_PACKAGE_docker-compose=y
-        CONFIG_PACKAGE_dockerd=y
-        CONFIG_PACKAGE_luci-app-dockerman=y
-        CONFIG_PACKAGE_luci-i18n-dockerman-zh-cn=y
-        CONFIG_PACKAGE_luci-lib-docker=y
-        ' >> .config
         make defconfig
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
